@@ -1,3 +1,5 @@
+# https://inf-ege.sdamgia.ru/problem?id=27695
+
 f = open('zadanie24_2.txt', 'r')
 s = f.readline()
 
