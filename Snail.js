@@ -22,8 +22,6 @@ function snail(arr) {
     }
   
   }  
-
-  return snail
 }
 
 
