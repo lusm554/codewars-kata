@@ -20,7 +20,6 @@ function snail(arr) {
     for (i of arr.slice(0, len-1).reverse()) {
       snail.push(i.shift())
     }
-  
   }  
 }
 
