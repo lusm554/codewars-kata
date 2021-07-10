@@ -15,47 +15,14 @@ def format_duration(s):
     res = {}
     s_res = ''
     for k, f in sto.items():
-
-        if k == 'year':
-            y = sto[k][1](s)
-            if y > 0:
-                s -= sto[k][0]
-                if y > 1:
-                    res['years'] = y
-                else:
-                    res['year'] = y
-        elif k == 'day':
-            d = sto[k][1](s)
-            if d > 0:
-                s -= sto[k][0]
-                if s > 1:
-                    res['days'] = d
-                else:
-                    res['day'] = d
-        elif k == 'hour':
-            h = sto[k][1](s)
-            if h > 0:
-                s -= sto[k][0]
-                if h > 1:
-                    res['hours'] = h
-                else:
-                    res['hour'] = h
-        elif k == 'minute':
-
-            m = sto[k][1](s)
-            if m > 0:
-                s -= sto[k][0]
-                if m > 1:
-                    res['minutes'] = m
-                else:
-                    res['minute'] = m
-        elif k == 'second':
-            s = sto[k][1](s)
-            if s > 1:
-                res['seconds'] = s
+        cv = sto[k][1](s)
+        if cv > 0:
+            s -= sto[k][0]
+            if cv > 1:
+                s_res += f'{cv} {k} '
             else:
-                res['second'] = s
-    print(res)
+                s_res += f'{cv} {k}s '
+    print(s_res)
     return ''
 
 #-------------TEST-------------
