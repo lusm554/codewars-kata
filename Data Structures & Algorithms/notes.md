@@ -52,3 +52,16 @@ user = {
 print(user['name']) # Nikita
 ```
 
+# Part II: User-Defined Data Structures
+Three user-defined data structures: queues, stack and tree.
+
+#### Stack using arrays
+The stack is a linear data structure where items are arranged sequentially. It follows the mechanism L.I.F.O which means last in firt out.
+- Push - inserting item into stack
+- Pop - deleting an item from stack
+
+Conditions to check:
+- overflow - occurs when we try to put one more item into stack that already having max items.
+- underflow - occurs when we try to delete item from an empty stack.
+
+Checkout `stack.py`.
