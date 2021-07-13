@@ -65,3 +65,7 @@ Conditions to check:
 - underflow - occurs when we try to delete item from an empty stack.
 
 Checkout `stack.py`.
+
+#### Queue using arrays -> `queue.py` 
+#### Tree -> `treee.py` 
+
