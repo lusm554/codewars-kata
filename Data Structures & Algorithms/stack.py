@@ -28,3 +28,25 @@ class Stack:
             raise IndexError('Stack is empty.') 
         else:
             return self.data.pop()
+
+
+s = Stack()
+s.push(1)
+print(s.pop()) # 1
+print(s.is_full()) # False
+print(s.length()) # 0
+
+for i in range(10):
+    s.push(i)
+
+print(s.length()) # 10
+try: 
+    s.push(1)
+except OverflowError:
+    print('OverflowError')
+
+s = Stack()
+try:
+    s.pop()
+except IndexError:
+    print('IndexError')
