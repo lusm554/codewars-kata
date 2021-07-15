@@ -1,3 +1,6 @@
+oh, btw all code that i write during the learning this, will be here. `( ◕▿◕ )`
+
+
 # Part Ⅰ: Built-in Data Structures
 So, data structures allow us to organize, store, and manage data for efficient access and modification.
 
