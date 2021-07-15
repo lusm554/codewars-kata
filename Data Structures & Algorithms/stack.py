@@ -1,52 +1,31 @@
+# Stack is a linear ds that follows the principle of Last in First Out (LIFO).
+# Basic operations of stack: push, pop, isEmpty, isFull, peek
+
 class Stack:
-
-
     def __init__(self):
-        self.MAX_LEN = 10
-        self.data = []
+       self.stack = [] 
+       self.TOP = -1
+       self.MAX_DEPTH = 99 # like 100, but 99
 
-
-    def length(self):
-        return len(self.data)
-
-
-    def is_full(self):
-        if len(self.data) == self.MAX_LEN:
-            return True
-        return False
-
-
-    def push(self, item):
-        if len(self.data) < self.MAX_LEN:
-            self.data.append(item)
-        else:
-            raise OverflowError()
-
+    def push(self, val):
+        if self.TOP >= self.MAX_DEPTH:
+            raise IndexError('Stack is full')
+        self.stack.append(val)
+        self.TOP += 1
+        return self
 
     def pop(self):
-        if len(self.data) == 0:
-            raise IndexError('Stack is empty.') 
-        else:
-            return self.data.pop()
+        if self.TOP == -1:
+            raise ValueError('Stack empty')
+        self.TOP -= 1
+        return self.stack.pop()
 
+    def isEmpty(self):
+        return self.TOP == -1
 
-s = Stack()
-s.push(1)
-print(s.pop()) # 1
-print(s.is_full()) # False
-print(s.length()) # 0
+    def isFull(self):
+        return self.TOP == self.MAX_DEPTH 
 
-for i in range(10):
-    s.push(i)
+    def peek(self):
+        return self.stack[self.TOP]
 
-print(s.length()) # 10
-try: 
-    s.push(1)
-except OverflowError:
-    print('OverflowError')
-
-s = Stack()
-try:
-    s.pop()
-except IndexError:
-    print('IndexError')
