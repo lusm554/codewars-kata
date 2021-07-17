@@ -15,3 +15,52 @@
 #         1    3 4
 
 
+class MaxHeap:
+    def __init__(self, tree):
+        self.tree = tree
+
+    def heapify(self, n, i):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
+
+        if l < n and self.tree[i] < self.tree[l]:
+            largest = l
+        if r < n and self.tree[largest] < self.tree[r]:
+            largest = r
+        if largest != i:
+            self.tree[i], self.tree[largest] = self.tree[largest], self.tree[i]
+    
+    def insert(self, new):
+        size = len(self.tree)
+        if size == 0:
+            self.tree.append(new)
+        else:
+            self.tree.append(new)
+            for i in range((size//2)-1, -1, -1):
+                self.heapify(size, i)
+
+    def deleteNode(self, num):
+        size = len(self.tree)
+        i = 0
+        for i in range(size):
+            if num == self.tree[i]:
+                break
+        self.tree[i], self.tree[size-1] = self.tree[size-1], self.tree[i]
+        self.tree.remove(num)
+        for i in range((len(self.tree)//2)-1, -1, -1):
+            self.heapify(len(self.tree), i)
+
+# TEST
+k = [3, 9, 2, 1, 4, 5]
+l = []
+
+j = MaxHeap(l)
+for i in k:
+    j.insert(i)
+
+print(j.tree)
+
+j.deleteNode(3)
+print(j.tree)
+
