@@ -23,7 +23,7 @@ class CircularQueue:
     def dequeue(self):
         if self.head == -1:
             raise IndexError('queue is empty')
-        
+         
         if self.head == self.tail:
             temp = self.queue[self.head]
             self.head = self.tail = -1
@@ -33,6 +33,7 @@ class CircularQueue:
             self.head = (self.head + 1) % self.k
             return temp
 
+# TEST
 q = CircularQueue(5) 
 for i in range(5):
     q.enqueue(i)
