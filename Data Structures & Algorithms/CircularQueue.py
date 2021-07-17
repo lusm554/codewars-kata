@@ -7,6 +7,7 @@ class CircularQueue:
         self.queue = [None] * k
         self.head = self.tail = -1
 
+    # add item to queue
     def enqueue(self, data):
         if (self.tail + 1) % self.k == self.head:
             raise IndexError('queue is full')
@@ -18,12 +19,34 @@ class CircularQueue:
             self.tail = (self.tail + 1) % self.k
             self.queue[self.tail] = data
 
+    # remove item from queue
+    def dequeue(self):
+        if self.head == -1:
+            raise IndexError('queue is empty')
+        
+        if self.head == self.tail:
+            temp = self.queue[self.head]
+            self.head = self.tail = -1
+            return temp
+        else:
+            temp = self.queue[self.head]
+            self.head = (self.head + 1) % self.k
+            return temp
 
+q = CircularQueue(5) 
+for i in range(5):
+    q.enqueue(i)
 
-q = CircularQueue(5)
+try:
+    q.enqueue('ggwp')
+except IndexError:
+    print('it\'s ok')
 
-q.enqueue(1)
-q.enqueue(1)
-q.enqueue(1)
-q.enqueue(1)
-q.enqueue(1)
+for i in range(5):
+    e = q.dequeue()
+    print(e)
+
+try:
+    q.dequeue()
+except IndexError:
+    print('all done')
