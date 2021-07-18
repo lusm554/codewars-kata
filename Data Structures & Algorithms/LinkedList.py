@@ -22,8 +22,6 @@ if __name__ == '__main__':
         f, s = nodes[i], nodes[i+1]
         f.next = s
     l = l.head
-    while l.next:
+    while l:
         print(l.item)
         l = l.next
-    else:
-        print(l.item)
