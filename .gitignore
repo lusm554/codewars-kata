@@ -1,4 +1,5 @@
 *.txt
+!requirements.txt
 *.swp
 node_modules
 package-lock.json
