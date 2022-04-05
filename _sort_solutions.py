@@ -3,9 +3,11 @@ import os
 import shutil
 from urllib.parse import urlparse
 
+file_ext = ('.py', '.js', '.sql', '.c')
+
 files = [file for file in os.listdir('.') 
         if os.path.isfile(file) and not file.startswith('_') 
-        and file.endswith(('.py', '.js', '.sql'))]
+        and file.endswith(file_ext)]
 
 def val_link(s):
     try:
@@ -28,6 +30,7 @@ def get_info(link):
     if r.status_code == 200:
         json = r.json()
         folder_name = json['rank']['name'].replace(' ', '-').strip()
+        print(folder_name)
         return folder_name
     raise ValueError(f'request failed, status code {r.status_code}')
 
