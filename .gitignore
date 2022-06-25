@@ -1,6 +1,16 @@
+# Ignore some input files
 *.txt
 !requirements.txt
+
+# Ignore Vim 
 *.swp
+
+# Ignore nodejs
 node_modules
 package-lock.json
+
+# Ignore c/cpp files
 *.out
+
+# Ignore py notes
+test.py
