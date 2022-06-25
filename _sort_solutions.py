@@ -6,10 +6,12 @@ import shutil
 from urllib.parse import urlparse
 
 file_ext = ('.py', '.js', '.sql', '.c')
+ignore_files = [os.path.basename(__file__), "test.py"]
 
 files = [file for file in os.listdir('.') 
-        if os.path.isfile(file) and not file.startswith('_') 
+        if os.path.isfile(file) and file not in ignore_files
         and file.endswith(file_ext)]
+
 
 def val_link(s):
     try:
