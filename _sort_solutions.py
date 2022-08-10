@@ -5,7 +5,7 @@ import os
 import shutil
 from urllib.parse import urlparse
 
-file_ext = ('.py', '.js', '.sql', '.c')
+file_ext = ('.py', '.js', '.sql', '.c', '.cpp')
 ignore_files = [os.path.basename(__file__), "test.py"]
 
 files = [file for file in os.listdir('.') 
