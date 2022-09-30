@@ -9,6 +9,7 @@ for i in range(1, fact + 1):
 print(n)
 """
 
+# simple recursive
 def fact(n):
     if n == 1:
         return n
@@ -18,6 +19,7 @@ def fact(n):
 #res = fact(500)
 #print(res)
 
+# recursion with memoize
 _fact_cache = {}
 def mem_fact(n):
     if n == 1:
@@ -30,4 +32,16 @@ def mem_fact(n):
 
 #res = mem_fact(500)
 #print(res)
+
+from functools import lru_cache
+
+# or with lru_cache
+@lru_cache()
+def fact_wdec(n):
+    if n == 1:
+        return n
+    return n * fact(n-1)
+
+res = fact_wdec(500)
+print(res)
 
