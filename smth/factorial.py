@@ -15,6 +15,19 @@ def fact(n):
     return n * fact(n-1)
 
 
-res = fact(500)
-print(res)
+#res = fact(500)
+#print(res)
+
+_fact_cache = {}
+def mem_fact(n):
+    if n == 1:
+        return n
+    res = _fact_cache.get(n)
+    if res is None:
+        res = n * mem_fact(n-1)
+        _fact_cache[n] = res
+    return res
+
+#res = mem_fact(500)
+#print(res)
 
