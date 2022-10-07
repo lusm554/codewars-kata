@@ -1,8 +1,9 @@
+from abc import ABC, abstractmethod
 import secrets
 import hashlib, uuid
 
-class User:
-    _salt = uuid.uuid4().hex # remove salt if need to verify pwd not only in scope of class object
+class User(ABC):
+    __roles = "r"
     def __init__(self, username, password):
         self._usrname = username
         self._pwd = self.__hash_pwd__(password)
@@ -24,20 +25,39 @@ class User:
         return self.__hash_pwd__(pwd_to_verify) == self._pwd
 
     def __hash_pwd__(self, pwd):
-        pwd = hashlib.sha512(pwd.encode("utf-8") + self._salt.encode("utf-8")).hexdigest()
+        pwd = hashlib.sha512(pwd.encode("utf-8")).hexdigest()
         return pwd
+
+    def isadmin(self):
+        return False 
 
 
 class Admin(User):
+    __roles = "rwx"
+    def __init__(self, username, password):
+        super().__init__(username, password)
+
+    def set_pwd(self, actuall_pwd, new_pwd):
+        if self.is_pwd_correct(actuall_pwd):
+            self._pwd = self.__hash_pwd__(new_pwd)
+
+    def isadmin(self):
+        return True
+
+class Wallet(User):
     pass
 
-class Wallet:
-    pass
 
-u = User("lusm", "123")
+p = "superhardpassword"
+a = Admin("lusma", p)
 
-print(
-    u.is_pwd_correct("123")
-)
+check = lambda obj, p: print(f"Pwd {p} is correct:", obj.is_pwd_correct(p))
+
+check(a, p)
+a.set_pwd(p, "nothardpwd:(")
+check(a, p)
+check(a, "nothardpwd:(")
+
+
 
 
