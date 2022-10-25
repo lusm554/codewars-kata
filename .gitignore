@@ -1,5 +1,4 @@
 # Ignore some input files
-*.txt
 !requirements.txt
 
 # Ignore Vim 
