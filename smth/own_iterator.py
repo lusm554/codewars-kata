@@ -15,6 +15,8 @@ class Series:
 
 def main():
     lst = Series(1, 10)
+    print(type(lst))
+    print(next(lst))
     for i in lst:
         print(i)
 
