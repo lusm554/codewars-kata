@@ -6,7 +6,7 @@ import shutil
 from urllib.parse import urlparse
 
 file_ext = ('.py', '.js', '.sql', '.c', '.cpp')
-ignore_files = [os.path.basename(__file__), "test.py"]
+ignore_files = [os.path.basename(__file__), "test.py", "_convert_fname.py"]
 
 files = [file for file in os.listdir('.') 
         if os.path.isfile(file) and file not in ignore_files
