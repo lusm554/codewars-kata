@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-task_name = input('Enter task name: ')
+import sys
+#task_name = input('Enter task name: ')
+task_name = ' '.join(sys.argv[1:])
 task_name = task_name.replace('.', '')
 task_name = task_name.replace('!', '')
 task_name = task_name.replace(',', '')
