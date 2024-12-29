@@ -75,17 +75,25 @@ def rank_hand(hand):
   for comb, name, rank in zip(combinations_order, names, range(len(combinations_order), 0, -1)):
     r = comb(cards)
     if r:
-      return rank
+      return rank, cards
 
+def rank_eq_rank(hand_cards, other_cards):
+  for hc, oc in zip(hand_cards.cards[::-1], other_cards.cards[::-1]):
+    if hc['val'] > oc['val']:
+      return 'Win'
+    elif hc['val'] < oc['val']:
+      return 'Loss'
+  return 'Tie'
+  
 def compare_hand(hand, other):
-  hand_rank = rank_hand(hand)
-  other_rank = rank_hand(other)
+  hand_rank, hand_cards = rank_hand(hand)
+  other_rank, other_cards = rank_hand(other)
   if hand_rank > other_rank:
     return 'Win'
   elif hand_rank < other_rank:
     return 'Loss'
   else:
-    return 'None'
+    return rank_eq_rank(hand_cards, other_cards)
 
 def run_test(name, shouldbe, hand, other):
   res = compare_hand(hand, other)
