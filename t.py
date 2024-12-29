@@ -11,7 +11,7 @@ class PokerHand:
         self.src_hand = hand
         self.hand = [Card(card) for card in hand.split()]
         self.value_cnts = Counter(card.value for card in self.hand)
-        print(self.rank)
+        print(f"{self.src_hand=} {self.rank=}")
 
     @property
     def rank(self):
