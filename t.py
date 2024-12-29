@@ -15,9 +15,10 @@ v2i = {
 
 hand = "KS 2H 5C JD TD"
 #hand = "AS 2H 5C JD TD" # low ace seq false
-#hand = "AS 2H 4C 3D 5D" # low ace seq true
+#hand = "AS 2S 4S 3S 5S" # low ace seq true
 print(hand)
 
+import functools
 class Cards:
   def __init__(self, hand):
     self.hand = hand
@@ -30,20 +31,20 @@ class Cards:
     cards = sorted(cards, key=lambda x: (x['val'], x['suit']), reverse=False)
     return cards
 
-  @property
+  @functools.cached_property
   def val(self): return [c['val'] for c in self.cards]
 
-  @property
+  @functools.cached_property
   def suit(self): return [c['suit'] for c in self.cards]
+
+  @functools.cached_property
+  def unique_suit(self): return set(self.suit)
 
   def __repr__(self): return f"Cards(hand={self.hand!r})"
 
 from pprint import pp
 cards = Cards(hand)
-print(cards)
-print(cards.val)
-print(cards.suit)
-
+print(cards);print(cards.val);print(cards.suit)
 
 def is_card_seq(cards):
   stepsize_one = lambda s: not any((x2 - x1) != 1 for x1, x2 in zip(s, s[1:]))
@@ -51,16 +52,11 @@ def is_card_seq(cards):
   if v2i['A'] in cards.val:
     seq = sorted([1 if x == v2i['A'] else x for x in cards.val]) # low ace condition
     seq_to_check.append(seq)
-  print('seq',seq_to_check)
   return any(stepsize_one(seq) for seq in seq_to_check)
 
-print(is_card_seq(cards))
-
-exit()
-
-flush_royal = lambda c: c.val[0] == 10 and stepsize_one(c.val) and len(set(c.suit)) == 1
-straight_flush = lambda c: stepsize_one(c.val) and len(set(c.suit)) == 1
-four_of_kind = None # kare
+flush_royal = lambda c: c.val[0] == 10 and is_card_seq(c) and len(c.unique_suit) == 1
+straight_flush = lambda c: is_card_seq(c) and len(c.unique_suit) == 1
+four_of_kind = lambda c: None
 full_house = None
 flush = None
 straight = None
@@ -71,6 +67,7 @@ high_card = None
 
 combinations_order = [
   flush_royal,
+  straight_flush,
 ]
 
 for comb in combinations_order:
