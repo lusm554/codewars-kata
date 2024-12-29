@@ -29,7 +29,7 @@ class PokerHand:
         return n in self.value_cnts.values()
 
       def is_full_house():
-        return 
+        return is_n_of_kind(3) and is_n_of_kind(2)
   
     def __lt__(self, other):
       return self.rank < other.rank
