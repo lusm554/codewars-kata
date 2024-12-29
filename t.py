@@ -36,7 +36,6 @@ class Cards:
 
 def compare_hand(hand):
   cards = Cards(hand)
-  print(cards);print(cards.val);print(cards.suit)
 
   def is_card_seq(cards):
     stepsize_one = lambda s: not any((x2 - x1) != 1 for x1, x2 in zip(s, s[1:]))
@@ -49,22 +48,37 @@ def compare_hand(hand):
   flush_royal = lambda c: c.val[0] == 10 and is_card_seq(c) and len(c.unique_suit) == 1
   straight_flush = lambda c: is_card_seq(c) and len(c.unique_suit) == 1
   four_of_kind = lambda c: 4 in c.val_count.values()
-  full_house = None
-  flush = None
-  straight = None
-  three_of_kind = None # set
-  two_pair = None # double set
-  one_pair = None # set
-  high_card = None
+  full_house = lambda c: len(c.val_count) == 2 and 3 in c.val_count.values() and 2 in c.val_count.values()
+  flush = lambda c: len(c.unique_suit) == 1
+  straight = lambda c: is_card_seq(c)
+  three_of_kind = lambda c: 3 in c.val_count.values() # set
+  two_pair = lambda c: list(c.val_count.values()).count(2) == 2 # double set
+  one_pair = lambda c: list(c.val_count.values()).count(2) == 1 # set
+  high_card = lambda c: c.cards[-1]
 
   combinations_order = [
     flush_royal,
     straight_flush,
     four_of_kind,
+    full_house,
+    flush,
+    straight,
+    three_of_kind,
+    two_pair,
+    one_pair,
+    high_card,
   ]
 
-  for comb in combinations_order:
-    print(comb(cards))
+  names = [
+    'flush royal', 'straight flush', 'for of kind', 'full house', 'flush',
+    'straight', 'three of kind', 'two pair', 'one pair', 'high card'
+  ]
+  for comb, name in zip(combinations_order, names):
+    r = comb(cards)
+    if r:
+      print('\033[92m' + f"\t{name} {r}" + '\033[0m')
+    else:
+      print('\t', name, r)
 
 # SHDC
 hands = [
@@ -83,5 +97,6 @@ hands = [
 ]
 
 for hand, sol in hands:
-  print('\t', hand, sol)
+  print(hand, sol)
   compare_hand(hand)
+  print()
