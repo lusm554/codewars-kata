@@ -30,6 +30,12 @@ class PokerHand:
 
       def is_full_house():
         return is_n_of_kind(3) and is_n_of_kind(2)
+
+      def is_2_pair():
+        return list(self.value_cnts.values()).count(2) == 2
+
+      def get_by_cnt(n):
+        return
   
     def __lt__(self, other):
       return self.rank < other.rank
