@@ -45,22 +45,40 @@ class PokerHand:
       if is_n_of_kind(4):
         return (8, get_by_cnt(4), get_by_cnt(1))
       if is_full_house():
-        return (7, get_by_cnt(4), get_by_cnt(1))
-
-
-      return -1, None
+        return (7, get_by_cnt(3), get_by_cnt(2))
+      if is_flush():
+        return (6, get_by_cnt(1))
+      if is_straight():
+        return (5, get_by_cnt(1))
+      if is_n_of_kind(3):
+        return (4, get_by_cnt(3), get_by_cnt(1))
+      if is_2_pair():
+        return (3, get_by_cnt(2), get_by_cnt(1))
+      if is_n_of_kind(2):
+        return (2, get_by_cnt(2), get_by_cnt(1))
+      return (1, get_by_cnt(1))
   
     @property
     def sort_rank(self):
-      return self.rank[0]
+      #return self.rank[0]
+      return self.rank
 
     def __lt__(self, other):
       return self.sort_rank < other.sort_rank
         
-hands = list()
-hands.append(PokerHand("KS 2H 5C JD TD"))
-hands.append(PokerHand("2C 3C AC 4C 5C"))
-hands.sort()
-hands = sorted(hands)
-print(hands)
+SORTED_POKER_HANDS = list(map(PokerHand, ["KS AS TS QS JS",
+                                          "2H 3H 4H 5H 6H",
+                                          "AS AD AC AH JD",
+                                          "JS JD JC JH 3D",
+                                          "2S AH 2H AS AC",
+                                          "AS 3S 4S 8S 2S",
+                                          "2H 3H 5H 6H 7H",
+                                          "2S 3H 4H 5S 6C",
+                                          "2D AC 3H 4H 5S",
+                                          "AH AC 5H 6H AS",
+                                          "2S 2H 4H 5S 4C",
+                                          "AH AC 5H 6H 7S",
+                                          "AH AC 4H 6H 7S",
+                                          "2S AH 4H 5S KC",
+                                          "2S 3H 6H 7S 9C"]))
 
