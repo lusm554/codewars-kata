@@ -35,7 +35,10 @@ class Cards:
   @functools.cached_property
   def pairs_cards_lst(self):
     card_pairs = [val for val, cnt in self.val_count.items() if cnt == 2]
-    return [c for c in self.cards if c['val'] in card_pairs] 
+    print(f"{card_pairs=}")
+    res = [c for c in self.cards if c['val'] in card_pairs] 
+    print(f"{res=}")
+    return res
 
   @functools.cached_property
   def set_cards(self):
@@ -101,10 +104,8 @@ def rank_hand(hand):
 def get_cards_by_rank(rank, hand_cards, other_cards):
   #if rank == 1:
     #return [hand_cards.cards[-1]], [other_cards.cards[-1]]
-  #if rank in {2, 3}:
-    #print(1)
-    #print( hand_cards.pairs_cards_lst, other_cards.pairs_cards_lst)
-    #return hand_cards.pairs_cards_lst, other_cards.pairs_cards_lst
+  if rank in {2, 3}:
+    return hand_cards.pairs_cards_lst, other_cards.pairs_cards_lst
   if rank == 4:
     return hand_cards.set_cards, other_cards.hand_cards
   if rank == 8:
@@ -113,12 +114,20 @@ def get_cards_by_rank(rank, hand_cards, other_cards):
   return hand_cards.cards, other_cards.cards
 
 def rank_eq_rank(rank, hand_cards, other_cards):
-  get_cards_by_rank
+  print(f"{rank=}")
   hcards, ocards = get_cards_by_rank(rank, hand_cards, other_cards)
   hcards = sorted(hcards, key=lambda x: (x['val'], x['suit']), reverse=True)
   ocards = sorted(ocards, key=lambda x: (x['val'], x['suit']), reverse=True)
   for hc, oc in zip(hcards, ocards):
-    print(hc, oc)
+    print(f"{hc=} {oc=}")
+    if hc['val'] > oc['val']:
+      return 'Win'
+    elif hc['val'] < oc['val']:
+      return 'Loss'
+  _hcards = sorted(hand_cards.cards, key=lambda x: (x['val'], x['suit']), reverse=True)
+  _ocards = sorted(other_cards.cards, key=lambda x: (x['val'], x['suit']), reverse=True)
+  for hc, oc in zip(_hcards, _ocards):
+    print(f"{hc=} {oc=}")
     if hc['val'] > oc['val']:
       return 'Win'
     elif hc['val'] < oc['val']:
@@ -126,6 +135,7 @@ def rank_eq_rank(rank, hand_cards, other_cards):
   return 'Tie'
   
 def compare_hand(hand, other):
+  print(f"{hand=} {other=}")
   hand_rank, hand_cards = rank_hand(hand)
   other_rank, other_cards = rank_hand(other)
   if hand_rank > other_rank:
@@ -140,10 +150,10 @@ def run_test(name, shouldbe, hand, other):
   if res == shouldbe:
     print('\033[92m' + f"\t{name} {res=} {shouldbe=}" + '\033[0m')
   else:
-    print(hand)
-    print(other)
     print('\033[91m' + f"\t{name} {res=} {shouldbe=}" + '\033[0m')
 
+
+run_test("1",        "Win", "JC 4S 6S 4H 9H", "KC AC 3C 8S 3D")
 run_test("Highest straight flush wins",        "Loss", "2H 3H 4H 5H 6H", "KS AS TS QS JS")
 run_test("Straight flush wins of 4 of a kind", "Win",  "2H 3H 4H 5H 6H", "AS AD AC AH JD")
 run_test("Highest 4 of a kind wins",           "Win",  "AS AH 2H AD AC", "JS JD JC JH 3D")
