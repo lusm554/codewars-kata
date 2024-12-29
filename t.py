@@ -10,8 +10,17 @@ class PokerHand:
     def __init__(self, hand):
         self.hand = [Card(card) for card in hand.split()]
         self.value_cnts = Counter(card.value for card in self.hand)
-        print(self.hand)
-        print(self.value_cnts)
+
+    @property
+    def rank(self):
+      def is_flush():
+        return len({c.suit for c in self.hand}) == 1
+
+      def is_straight():
+        def is_one_increasing(seq):
+          return all(b-a == 1 for a,b in zip(seq, seq[1:]))
+          vals =  
+          
   
     def __lt__(self, other):
       return self.rank < other.rank
