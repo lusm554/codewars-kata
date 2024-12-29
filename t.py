@@ -21,7 +21,15 @@ class PokerHand:
           return all(b-a == 1 for a,b in zip(seq, seq[1:]))
         vals = sorted(c.value for c in self.hand)
         return is_one_increa(vals) or (is_one_increa(vals[:4]) and vals[0] == 2 and vals[-1] == 14) # for low ace
-          
+      
+      def is_straight_flush():
+        return is_flush() and is_straight()
+
+      def is_n_of_kind(n):
+        return n in self.value_cnts.values()
+
+      def is_full_house():
+        return 
   
     def __lt__(self, other):
       return self.rank < other.rank
