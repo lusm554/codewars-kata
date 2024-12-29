@@ -68,7 +68,6 @@ def rank_hand(hand):
     one_pair,
     high_card,
   ]
-
   names = [
     'flush royal', 'straight flush', 'for of kind', 'full house', 'flush',
     'straight', 'three of kind', 'two pair', 'one pair', 'high card'
@@ -77,17 +76,42 @@ def rank_hand(hand):
     r = comb(cards)
     if r:
       return rank
-    '''
-    if r:
-      print('\033[92m' + f"\t{name} {r} {rank}" + '\033[0m')
-    else:
-      print('\t', name, r, rank)
-    '''
 
-def compare_hand(hand):
+def compare_hand(hand, other):
   hand_rank = rank_hand(hand)
-  print(hand_rank)
+  other_rank = rank_hand(other)
+  if hand_rank > other_rank:
+    return 'Win'
+  elif hand_rank < other_rank:
+    return 'Loss'
+  else:
+    return 'None'
 
+def run_test(name, shouldbe, hand, other):
+  res = compare_hand(hand, other)
+  if res == shouldbe:
+    print('\033[92m' + f"\t{name} {res=} {shouldbe=}" + '\033[0m')
+  else:
+    print('\033[91m' + f"\t{name} {res=} {shouldbe=}" + '\033[0m')
+
+run_test("Highest straight flush wins",        "Loss", "2H 3H 4H 5H 6H", "KS AS TS QS JS")
+run_test("Straight flush wins of 4 of a kind", "Win",  "2H 3H 4H 5H 6H", "AS AD AC AH JD")
+run_test("Highest 4 of a kind wins",           "Win",  "AS AH 2H AD AC", "JS JD JC JH 3D")
+run_test("4 Of a kind wins of full house",     "Loss", "2S AH 2H AS AC", "JS JD JC JH AD")
+run_test("Full house wins of flush",           "Win",  "2S AH 2H AS AC", "2H 3H 5H 6H 7H")
+run_test("Highest flush wins",                 "Win",  "AS 3S 4S 8S 2S", "2H 3H 5H 6H 7H")
+run_test("Flush wins of straight",             "Win",  "2H 3H 5H 6H 7H", "2S 3H 4H 5S 6C")
+run_test("Equal straight is tie",              "Tie",  "2S 3H 4H 5S 6C", "3D 4C 5H 6H 2S")
+run_test("Straight wins of three of a kind",   "Win",  "2S 3H 4H 5S AD", "AH AC 5H 6H AS")
+run_test("3 Of a kind wins of two pair",       "Loss", "2S 2H 4H 5S 4C", "AH AC 5H 6H AS")
+run_test("2 Pair wins of pair",                "Win",  "2S 2H 4H 5S 4C", "AH AC 5H 6H 7S")
+run_test("Highest pair wins",                  "Loss", "6S AD 7H 4S AS", "AH AC 5H 6H 7S")
+run_test("Pair wins of nothing",               "Loss", "2S AH 4H 5S KC", "AH AC 5H 6H 7S")
+run_test("Highest card loses",                 "Loss", "2S 3H 6H 7S 9C", "7H 3C TH 6H 9S")
+run_test("Highest card wins",                  "Win",  "4S 5H 6H TS AC", "3S 5H 6H TS AC")
+run_test("Equal cards is tie",               "Tie",  "2S AH 4H 5S 6C", "AD 4C 5H 6H 2C")
+
+'''
 # SHDC
 hands = [
  ('TS JS QS KS AS', 'flush royal'),# flush royal
@@ -103,8 +127,4 @@ hands = [
  ('3S 3D 1D TC 2H', 'one pair'), # one pair
  ('2S 3D 5D 8C TH', 'high card'), # high card
 ]
-
-for hand, sol in hands:
-  print(hand, sol)
-  compare_hand(hand)
-  print()
+'''
