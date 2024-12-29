@@ -5,11 +5,13 @@ class Card:
     self.suit = card[1]
 
 class PokerHand:
-    def __repr__(self):  return self.hand
+    def __repr__(self): return self.src_hand
 
     def __init__(self, hand):
+        self.src_hand = hand
         self.hand = [Card(card) for card in hand.split()]
         self.value_cnts = Counter(card.value for card in self.hand)
+        print(self.rank)
 
     @property
     def rank(self):
@@ -35,10 +37,25 @@ class PokerHand:
         return list(self.value_cnts.values()).count(2) == 2
 
       def get_by_cnt(n):
-        return
+        sorted_value_cnts = sorted(self.value_cnts.items(), key=lambda x: (x[1], -x[0]))
+        return tuple(val for val, cnt in sorted_value_cnts if cnt == n)
+ 
+      if is_straight_flush():
+        return (9, get_by_cnt(1))
+      if is_n_of_kind(4):
+        return (8, get_by_cnt(4), get_by_cnt(1))
+      if is_full_house():
+        return (7, get_by_cnt(4), get_by_cnt(1))
+
+
+      return -1, None
   
+    @property
+    def sort_rank(self):
+      return self.rank[0]
+
     def __lt__(self, other):
-      return self.rank < other.rank
+      return self.sort_rank < other.sort_rank
         
 hands = list()
 hands.append(PokerHand("KS 2H 5C JD TD"))
