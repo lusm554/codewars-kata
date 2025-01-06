@@ -8,6 +8,7 @@ With `convert_fname.py` u can convert task name from codewars site to unix like 
 
 
 <h2> Domains to train</h2>
+
 - interpreter
 - puzzles
 - math (like sequences(fibonacci, padovan, golomb)
