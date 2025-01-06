@@ -17,9 +17,26 @@ class MemoryManager:
     pass
 
 a = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+size = len(a)
 alloc = [(0, 4)]
 f = list(islice(a, *alloc[0]))
 print(f)
+
+i=0
+free_s = 0
+while i < size:
+  print(f"{i=}")
+  if any(i >= x[0] and i <= x[1] for x in alloc):
+    print('\t', free_s)
+    free_s = 0
+  else:
+    free_s += 1
+  i+=1
+
+print('\t', free_s)
+
+
+
 
 
 
