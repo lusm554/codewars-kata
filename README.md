@@ -13,3 +13,7 @@ With `convert_fname.py` u can convert task name from codewars site to unix like 
 - puzzles
 - math (like sequences(fibonacci, padovan, golomb)
 
+<h2> Notes </h2>
+
+https://the-algorithms.com/
+
