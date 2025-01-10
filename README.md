@@ -15,5 +15,5 @@ With `convert_fname.py` u can convert task name from codewars site to unix like 
 
 <h2> Notes </h2>
 
-https://the-algorithms.com/
+- https://the-algorithms.com/
 
